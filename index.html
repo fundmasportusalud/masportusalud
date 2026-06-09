@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fundación Más Por Tu Salud — Atención Médica de Alta Calidad</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #0B3D6E;
+      --navy-mid:   #1A5C9A;
+      --red:        #C0392B;
+      --white:      #FFFFFF;
+      --offwhite:   #F5F8FC;
+      --silver:     #EAF0F7;
+      --text:       #1A2530;
+      --text-soft:  #4A5C6E;
+      --divider:    #D4DDE8;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--text); line-height: 1.65; }
+
+    /* ─── TOPBAR ─── */
+    .topbar {
+      background: var(--navy);
+      padding: .55rem 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .topbar-contact { color: rgba(255,255,255,.75); font-size: .78rem; letter-spacing: .02em; }
+    .topbar-contact span { margin-right: 1.8rem; }
+    .topbar-contact strong { color: white; }
+    .topbar-social { display: flex; gap: .9rem; }
+    .topbar-social a {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2);
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s;
+      text-decoration: none;
+    }
+    .topbar-social a:hover { background: rgba(255,255,255,.25); }
+    .topbar-social svg { width: 13px; height: 13px; fill: white; }
+
+    /* ─── NAV ─── */
+    nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--divider);
+      padding: 0 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 74px;
+      position: sticky; top: 0; z-index: 200;
+      box-shadow: 0 2px 16px rgba(11,61,110,.07);
+    }
+    .nav-brand { display: flex; align-items: center; gap: 1rem; text-decoration: none; }
+    .nav-brand-logo {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: var(--navy);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav-brand-logo svg { width: 22px; height: 22px; fill: none; stroke: white; stroke-width: 2; }
+    .nav-brand-text { line-height: 1.15; }
+    .nav-brand-text strong {
+      display: block; font-family: 'Playfair Display', serif;
+      font-size: 1.05rem; font-weight: 700; color: var(--navy); letter-spacing: -.01em;
+    }
+    .nav-brand-text span { font-size: .7rem; color: var(--text-soft); font-weight: 500; letter-spacing: .04em; text-transform: uppercase; }
+    nav ul { list-style: none; display: flex; gap: 2.2rem; }
+    nav ul a { text-decoration: none; color: var(--text-soft); font-size: .85rem; font-weight: 500; letter-spacing: .01em; transition: color .2s; }
+    nav ul a:hover { color: var(--navy); }
+    .nav-contact-btn {
+      background: var(--red); color: white;
+      padding: .55rem 1.4rem; border-radius: 6px;
+      font-size: .82rem; font-weight: 600; letter-spacing: .02em;
+      text-decoration: none; transition: background .2s;
+    }
+    .nav-contact-btn:hover { background: #a93226; }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      height: 92vh; min-height: 580px; max-height: 820px;
+      overflow: hidden;
+    }
+    .hero-img {
+      position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=1600&q=80') center/cover no-repeat;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(100deg, rgba(11,61,110,.88) 38%, rgba(11,61,110,.3) 100%);
+    }
+    /* diagonal slice — the signature element */
+    .hero-diagonal {
+      position: absolute; bottom: -2px; right: 0;
+      width: 55%; height: 100%;
+      clip-path: polygon(18% 0, 100% 0, 100% 100%, 0% 100%);
+      background: transparent;
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 1140px; margin: 0 auto;
+      padding: 0 3rem;
+      height: 100%; display: flex; flex-direction: column; justify-content: center;
+      max-width: 640px;
+    }
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: .7rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero-eyebrow-line { width: 36px; height: 2px; background: var(--red); }
+    .hero-eyebrow span {
+      color: rgba(255,255,255,.8); font-size: .75rem;
+      font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900; font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+      color: white; line-height: 1.1; letter-spacing: -.02em;
+      margin-bottom: 1.4rem;
+    }
+    .hero h1 em { font-style: normal; color: #7EC8F0; }
+    .hero p {
+      color: rgba(255,255,255,.78); font-size: 1.05rem;
+      font-weight: 300; max-width: 480px; margin-bottom: 2.5rem;
+    }
+    .hero-stats {
+      display: flex; gap: 2.5rem; border-top: 1px solid rgba(255,255,255,.18);
+      padding-top: 2rem; margin-top: .5rem;
+    }
+    .hero-stat strong {
+      display: block; font-family: 'Playfair Display', serif;
+      font-size: 2rem; font-weight: 700; color: white; line-height: 1;
+      margin-bottom: .2rem;
+    }
+    .hero-stat span { font-size: .78rem; color: rgba(255,255,255,.65); font-weight: 400; letter-spacing: .03em; text-transform: uppercase; }
+
+    /* ─── SECTION COMMONS ─── */
+    .sec { padding: 5.5rem 3rem; }
+    .sec-inner { max-width: 1140px; margin: 0 auto; }
+    .sec-header { margin-bottom: 3.5rem; }
+    .sec-label {
+      display: flex; align-items: center; gap: .65rem;
+      margin-bottom: .75rem;
+    }
+    .sec-label-line { width: 28px; height: 2px; background: var(--red); }
+    .sec-label span {
+      font-size: .72rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--red);
+    }
+    .sec-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.7rem, 3vw, 2.4rem); font-weight: 700;
+      color: var(--navy); line-height: 1.2; letter-spacing: -.02em;
+      margin-bottom: .85rem;
+    }
+    .sec-sub { color: var(--text-soft); font-size: .97rem; max-width: 560px; font-weight: 400; }
+
+    /* ─── ABOUT ─── */
+    .about-sec { background: var(--white); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+    }
+    .about-img-wrap { position: relative; }
+    .about-img {
+      width: 100%; height: 480px; object-fit: cover;
+      border-radius: 4px;
+      display: block;
+    }
+    .about-img-accent {
+      position: absolute; bottom: -22px; left: -22px;
+      width: 160px; height: 160px;
+      background: var(--navy); border-radius: 4px; z-index: -1;
+    }
+    .about-img-badge {
+      position: absolute; top: 24px; right: -24px;
+      background: var(--red); color: white;
+      padding: 1.2rem 1.4rem; border-radius: 4px;
+      text-align: center; box-shadow: 0 8px 32px rgba(192,57,43,.35);
+    }
+    .about-img-badge strong {
+      display: block; font-family: 'Playfair Display', serif;
+      font-size: 2rem; font-weight: 700; line-height: 1;
+    }
+    .about-img-badge span { font-size: .7rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; opacity: .85; }
+    .about-text p { color: var(--text-soft); margin-bottom: 1.1rem; font-size: .97rem; }
+    .about-values { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+    .value-item {
+      border-left: 3px solid var(--navy);
+      padding: .8rem 1rem; background: var(--offwhite); border-radius: 0 6px 6px 0;
+    }
+    .value-item strong { display: block; color: var(--navy); font-size: .88rem; font-weight: 700; margin-bottom: .2rem; }
+    .value-item span { color: var(--text-soft); font-size: .8rem; }
+
+    /* ─── PLANES ─── */
+    .planes-sec { background: var(--offwhite); }
+    .planes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .plan-card {
+      background: var(--white); border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 20px rgba(11,61,110,.07);
+      transition: box-shadow .25s, transform .2s;
+      display: flex; flex-direction: column;
+    }
+    .plan-card:hover { box-shadow: 0 10px 40px rgba(11,61,110,.14); transform: translateY(-4px); }
+    .plan-card-header {
+      padding: 1.8rem 2rem 1.5rem;
+      border-bottom: 1px solid var(--divider);
+    }
+    .plan-card-header.navy { background: var(--navy); }
+    .plan-card-header.red  { background: var(--red); }
+    .plan-cat {
+      font-size: .68rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; margin-bottom: .5rem;
+    }
+    .plan-card-header.navy .plan-cat { color: rgba(255,255,255,.65); }
+    .plan-card-header.red  .plan-cat { color: rgba(255,255,255,.65); }
+    .plan-card-header:not(.navy):not(.red) .plan-cat { color: var(--text-soft); }
+    .plan-name-h {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem; font-weight: 700;
+      color: white;
+    }
+    .plan-card-header:not(.navy):not(.red) .plan-name-h { color: var(--navy); }
+    .plan-validity-h { font-size: .78rem; margin-top: .3rem; color: rgba(255,255,255,.7); }
+    .plan-card-header:not(.navy):not(.red) .plan-validity-h { color: var(--text-soft); }
+    .plan-card-body { padding: 1.8rem 2rem; flex: 1; }
+    .plan-price-wrap { margin-bottom: 1.4rem; }
+    .plan-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.6rem; font-weight: 700; color: var(--navy);
+      line-height: 1;
+    }
+    .plan-price sub { font-size: 1rem; font-family: 'Inter', sans-serif; font-weight: 600; color: var(--text-soft); vertical-align: baseline; }
+    .plan-note { font-size: .78rem; color: var(--text-soft); margin-top: .35rem; }
+    .plan-includes { list-style: none; display: flex; flex-direction: column; gap: .65rem; }
+    .plan-includes li {
+      display: flex; align-items: flex-start; gap: .65rem;
+      font-size: .86rem; color: var(--text-soft);
+    }
+    .plan-includes li::before {
+      content: '';
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--navy); flex-shrink: 0; margin-top: .48rem;
+    }
+
+    /* ─── ESPECIALIDADES ─── */
+    .esp-sec { background: var(--white); }
+    .esp-intro-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;
+      margin-bottom: 4rem;
+    }
+    .esp-img {
+      width: 100%; height: 340px; object-fit: cover;
+      border-radius: 4px; display: block;
+    }
+    .esp-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+      background: var(--divider); border: 1px solid var(--divider); border-radius: 8px;
+      overflow: hidden;
+    }
+    .esp-item {
+      background: var(--white);
+      padding: 1.4rem 1.5rem;
+      transition: background .18s;
+    }
+    .esp-item:hover { background: var(--offwhite); }
+    .esp-item-line {
+      width: 24px; height: 2px;
+      background: var(--navy-mid); margin-bottom: .75rem;
+    }
+    .esp-item-name {
+      font-size: .88rem; font-weight: 600; color: var(--text);
+      line-height: 1.3;
+    }
+
+    /* ─── DIAGNOSTICOS ─── */
+    .diag-sec {
+      background: var(--navy);
+      padding: 5.5rem 3rem;
+    }
+    .diag-inner { max-width: 1140px; margin: 0 auto; }
+    .diag-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .diag-text .sec-label-line { background: #7EC8F0; }
+    .diag-text .sec-label span { color: #7EC8F0; }
+    .diag-text .sec-title { color: white; }
+    .diag-text .sec-sub { color: rgba(255,255,255,.68); }
+    .diag-list { display: flex; flex-direction: column; gap: .8rem; margin-top: 2rem; }
+    .diag-item {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 1.3rem;
+      background: rgba(255,255,255,.07); border-radius: 6px;
+      border-left: 3px solid #7EC8F0;
+    }
+    .diag-item span { color: rgba(255,255,255,.85); font-size: .9rem; font-weight: 500; }
+    .diag-img-wrap { position: relative; }
+    .diag-img {
+      width: 100%; height: 420px; object-fit: cover;
+      border-radius: 4px; display: block; opacity: .85;
+    }
+
+    /* ─── CONTACTO ─── */
+    .contact-sec { background: var(--offwhite); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .contact-map {
+      width: 100%; height: 340px;
+      background: var(--silver); border-radius: 4px; overflow: hidden;
+    }
+    .contact-map iframe { width: 100%; height: 100%; border: none; }
+    .contact-info-list { display: flex; flex-direction: column; gap: 1.2rem; margin-top: 1rem; }
+    .contact-info-item {
+      display: flex; gap: 1.1rem; padding-bottom: 1.2rem;
+      border-bottom: 1px solid var(--divider);
+    }
+    .contact-info-item:last-child { border-bottom: none; }
+    .contact-info-icon {
+      width: 40px; height: 40px; background: var(--navy); border-radius: 6px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .contact-info-icon svg { width: 17px; height: 17px; stroke: white; fill: none; stroke-width: 2; }
+    .contact-info-text strong { display: block; color: var(--navy); font-size: .85rem; font-weight: 700; margin-bottom: .2rem; }
+    .contact-info-text span { color: var(--text-soft); font-size: .88rem; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--text); padding: 3.5rem 3rem 2rem;
+    }
+    .footer-inner { max-width: 1140px; margin: 0 auto; }
+    .footer-top {
+      display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 3rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      margin-bottom: 2rem;
+    }
+    .footer-brand strong {
+      font-family: 'Playfair Display', serif;
+      display: block; font-size: 1.15rem; color: white; margin-bottom: .5rem;
+    }
+    .footer-brand p { color: rgba(255,255,255,.5); font-size: .82rem; line-height: 1.6; }
+    .footer-social { display: flex; gap: .7rem; margin-top: 1.3rem; }
+    .footer-social a {
+      width: 34px; height: 34px; border-radius: 6px;
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.12);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none; transition: background .2s;
+    }
+    .footer-social a:hover { background: var(--navy-mid); }
+    .footer-social svg { width: 14px; height: 14px; fill: white; }
+    .footer-col h4 {
+      color: white; font-size: .8rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase; margin-bottom: 1.1rem;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .footer-col ul li { color: rgba(255,255,255,.5); font-size: .84rem; }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      color: rgba(255,255,255,.3); font-size: .78rem;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .topbar, nav { padding: 0 1.5rem; }
+      .sec { padding: 3.5rem 1.5rem; }
+      .about-grid, .esp-intro-grid, .contact-grid,
+      .diag-grid, .footer-top { grid-template-columns: 1fr; gap: 2.5rem; }
+      .planes-grid { grid-template-columns: 1fr; }
+      .esp-grid { grid-template-columns: 1fr 1fr; }
+      nav ul { display: none; }
+      .hero-content { padding: 0 1.5rem; }
+      .about-img-badge { right: 10px; top: 10px; }
+      .footer-bottom { flex-direction: column; gap: .5rem; text-align: center; }
+    }
+    @media (max-width: 560px) {
+      .esp-grid { grid-template-columns: 1fr; }
+      .about-values { grid-template-columns: 1fr; }
+      .hero-stats { gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-contact">
+    <span><strong>Tel:</strong> 864 3838 Ext. 309</span>
+    <span><strong>Cel:</strong> 314 587 2574</span>
+    <span>Calle 25 #6-88 · 3er Piso · Neiva, Huila</span>
+  </div>
+  <div class="topbar-social">
+    <!-- Facebook -->
+    <a href="#" aria-label="Facebook">
+      <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+    </a>
+    <!-- Instagram -->
+    <a href="#" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    </a>
+    <!-- X / Twitter -->
+    <a href="#" aria-label="X">
+      <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    </a>
+    <!-- TikTok -->
+    <a href="#" aria-label="TikTok">
+      <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#">
+    <div class="nav-brand-logo">
+      <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+    </div>
+    <div class="nav-brand-text">
+      <strong>Más Por Tu Salud</strong>
+      <span>Fundación sin ánimo de lucro</span>
+    </div>
+  </a>
+  <ul>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#planes">Planes</a></li>
+    <li><a href="#especialidades">Especialidades</a></li>
+    <li><a href="#diagnosticos">Diagnósticos</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <a class="nav-contact-btn" href="#contacto">Ubícanos</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-img"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <span>Fundación certificada · Neiva, Huila</span>
+    </div>
+    <h1>Atención médica de <em>alta calidad</em>, al alcance de todos</h1>
+    <p>Somos una fundación sin ánimo de lucro comprometida con ofrecer salud oportuna, profesional y a un precio justo para cada paciente.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><strong>+15</strong><span>Especialidades</span></div>
+      <div class="hero-stat"><strong>3</strong><span>Planes accesibles</span></div>
+      <div class="hero-stat"><strong>100%</strong><span>Sin ánimo de lucro</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- NOSOTROS -->
+<section class="sec about-sec" id="nosotros">
+  <div class="sec-inner about-grid">
+    <div class="about-img-wrap">
+      <img class="about-img"
+        src="https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=800&q=80"
+        alt="Equipo médico de la Fundación Más Por Tu Salud"/>
+      <div class="about-img-accent"></div>
+      <div class="about-img-badge">
+        <strong>+15</strong>
+        <span>Años de<br>servicio</span>
+      </div>
+    </div>
+    <div class="about-text">
+      <div class="sec-header">
+        <div class="sec-label"><div class="sec-label-line"></div><span>Quiénes somos</span></div>
+        <h2 class="sec-title">Una fundación construida sobre la confianza del paciente</h2>
+        <p class="sec-sub">Comprometidos con el bienestar de cada persona que nos visita.</p>
+      </div>
+      <p>La Fundación <strong>Más Por Tu Salud</strong> es una institución sin ánimo de lucro que facilita convenios para ofrecer atención en salud de alta calidad, con profesionales certificados y a precios accesibles para toda la comunidad.</p>
+      <p>Nos especializamos en el manejo integral del riesgo cardiovascular, diabetes y enfermedades metabólicas, contando con un equipo multidisciplinario que abarca desde la consulta general hasta la rehabilitación cardíaca y pulmonar.</p>
+      <p>Nuestra sede está ubicada en el Edificio Las Ceibas MD, tercer piso, en el corazón de Neiva, Huila, de fácil acceso para todos nuestros pacientes.</p>
+      <div class="about-values">
+        <div class="value-item">
+          <strong>Alta calidad</strong>
+          <span>Profesionales con formación especializada y certificada.</span>
+        </div>
+        <div class="value-item">
+          <strong>Atención oportuna</strong>
+          <span>Respuesta rápida y seguimiento continuo al paciente.</span>
+        </div>
+        <div class="value-item">
+          <strong>Precio justo</strong>
+          <span>Convenios accesibles sin sacrificar la calidad del servicio.</span>
+        </div>
+        <div class="value-item">
+          <strong>Sin ánimo de lucro</strong>
+          <span>Toda nuestra gestión está orientada al bienestar social.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANES -->
+<section class="sec planes-sec" id="planes">
+  <div class="sec-inner">
+    <div class="sec-header">
+      <div class="sec-label"><div class="sec-label-line"></div><span>Afiliación</span></div>
+      <h2 class="sec-title">Planes de convenio</h2>
+      <p class="sec-sub">Accede a todos nuestros servicios médicos a través de nuestros planes de afiliación, diseñados para adaptarse a tus necesidades y las de tu familia.</p>
+    </div>
+    <div class="planes-grid">
+
+      <div class="plan-card">
+        <div class="plan-card-header navy">
+          <div class="plan-cat">Categoría A</div>
+          <div class="plan-name-h">Plan Individual</div>
+          <div class="plan-validity-h">Vigencia de 1 año · 1 persona</div>
+        </div>
+        <div class="plan-card-body">
+          <div class="plan-price-wrap">
+            <div class="plan-price">$60.000 <sub>COP</sub></div>
+            <div class="plan-note">Pago único anual por persona</div>
+          </div>
+          <ul class="plan-includes">
+            <li>Acceso a todas las especialidades disponibles</li>
+            <li>Consultas médicas a tarifas preferenciales</li>
+            <li>Exámenes de laboratorio y diagnósticos</li>
+            <li>Electrocardiograma incluido</li>
+            <li>Rehabilitación física y vascular</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="plan-card">
+        <div class="plan-card-header red">
+          <div class="plan-cat">Categoría B</div>
+          <div class="plan-name-h">Plan Bienestar</div>
+          <div class="plan-validity-h">Vigencia de 2 años · 1 persona</div>
+        </div>
+        <div class="plan-card-body">
+          <div class="plan-price-wrap">
+            <div class="plan-price">$110.000 <sub>COP</sub></div>
+            <div class="plan-note">Mayor cobertura temporal por persona</div>
+          </div>
+          <ul class="plan-includes">
+            <li>Todos los beneficios del Plan Individual</li>
+            <li>Cobertura extendida por 24 meses continuos</li>
+            <li>Seguimiento médico periódico</li>
+            <li>Prioridad en agendamiento de citas</li>
+            <li>Medicina alternativa y del deporte</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="plan-card">
+        <div class="plan-card-header" style="background: var(--offwhite); border-bottom: 1px solid var(--divider);">
+          <div class="plan-cat">Categoría C</div>
+          <div class="plan-name-h">Plan Familiar</div>
+          <div class="plan-validity-h">Vigencia de 1 año · Grupo de 5 personas</div>
+        </div>
+        <div class="plan-card-body">
+          <div class="plan-price-wrap">
+            <div class="plan-price">$130.000 <sub>COP</sub></div>
+            <div class="plan-note">Para grupos familiares de hasta 5 personas</div>
+          </div>
+          <ul class="plan-includes">
+            <li>Cobertura para 5 personas en un mismo grupo</li>
+            <li>Acceso completo a todas las especialidades</li>
+            <li>Ideal para núcleos familiares</li>
+            <li>Exámenes y diagnósticos incluidos</li>
+            <li>Atención en riesgo cardiovascular y diabetes</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ESPECIALIDADES -->
+<section class="sec esp-sec" id="especialidades">
+  <div class="sec-inner">
+    <div class="esp-intro-grid">
+      <div>
+        <div class="sec-header">
+          <div class="sec-label"><div class="sec-label-line"></div><span>Nuestros servicios</span></div>
+          <h2 class="sec-title">Excelentes profesionales en cada área</h2>
+          <p class="sec-sub">Contamos con un equipo multidisciplinario que cubre las principales áreas de la medicina para una atención verdaderamente integral.</p>
+        </div>
+        <p style="color: var(--text-soft); font-size: .95rem;">Cada especialidad está atendida por médicos con formación y experiencia certificada, garantizando diagnósticos precisos y tratamientos efectivos para mejorar la calidad de vida de nuestros pacientes.</p>
+      </div>
+      <img class="esp-img"
+        src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=800&q=80"
+        alt="Médico especialista en consulta"/>
+    </div>
+    <div class="esp-grid">
+      <div class="esp-item"><div class="esp-item-line"></div><div class="esp-item-name">Riesgo Cardiovascular y Diabetes</div></div>
+      <div class="esp-item"><div class="esp-item-line"></div><div class="esp-item-name">Medicina General</div></div>
+      <div class="esp-item"><div class="esp-item-line"></div><div class="esp-item-name">Cardiología</div></div>
+      <div class="esp-item"><div class="esp-item-line"></div><div class="esp-item-name">Diabetología</div></div>
+      <div class="esp-item"><div class="esp-item-line"></div><div class="esp-item-name">Medicina Interna</div></div>
+      <div class="esp-item"><div class="esp-item-line"></div><div class="esp-item-name">Medicina Geriátrica</div></div>
+      <div class="esp-item"><div class="esp-item-line"></div><div class="esp-item-name">Reumatología</div></div>
+      <div class="esp-item"><div class="esp-item-line"></div><div class="esp-item-name">Endocrinología</div></div>
+      <div class="esp-item"><div class="esp-item-line"></div><div class="esp-item-name">Medicina Alternativa</div></div>
+      <div class="esp-item"><div class="esp-item-line"></div><div class="esp-item-name">Medicina del Deporte</div></div>
+      <div class="esp-item"><div class="esp-item-line"></div><div class="esp-item-name">Terapia Física y Vascular</div></div>
+      <div class="esp-item"><div class="esp-item-line"></div><div class="esp-item-name">Exámenes de Laboratorio</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- DIAGNOSTICOS -->
+<section class="diag-sec" id="diagnosticos">
+  <div class="diag-inner">
+    <div class="diag-grid">
+      <div class="diag-text">
+        <div class="sec-label" style="margin-bottom:.75rem"><div class="sec-label-line"></div><span>Tecnología diagnóstica</span></div>
+        <h2 class="sec-title" style="color:white;">Diagnóstico preciso para un tratamiento efectivo</h2>
+        <p class="sec-sub" style="color:rgba(255,255,255,.68); margin-bottom: 0;">Contamos con equipos modernos y procedimientos certificados para apoyar el diagnóstico y seguimiento de cada paciente.</p>
+        <div class="diag-list">
+          <div class="diag-item"><span>Electrocardiograma</span></div>
+          <div class="diag-item"><span>Rehabilitación cardíaca y pulmonar</span></div>
+          <div class="diag-item"><span>Exámenes de laboratorio clínico</span></div>
+          <div class="diag-item"><span>Exámenes diagnósticos especializados</span></div>
+          <div class="diag-item"><span>Terapia física y vascular</span></div>
+        </div>
+      </div>
+      <div class="diag-img-wrap">
+        <img class="diag-img"
+          src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80"
+          alt="Equipos de diagnóstico médico"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="sec contact-sec" id="contacto">
+  <div class="sec-inner">
+    <div class="sec-header">
+      <div class="sec-label"><div class="sec-label-line"></div><span>Ubicación y contacto</span></div>
+      <h2 class="sec-title">Encuéntranos</h2>
+      <p class="sec-sub">Estamos ubicados en el corazón de Neiva, Huila. Visítanos o comunícate con nosotros.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-map">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.7!2d-75.2819!3d2.9273!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sCalle+25+%236-88%2C+Neiva%2C+Huila!5e0!3m2!1ses!2sco!4v1"
+          allowfullscreen="" loading="lazy"
+          title="Ubicación Fundación Más Por Tu Salud"></iframe>
+      </div>
+      <div>
+        <div class="contact-info-list">
+          <div class="contact-info-item">
+            <div class="contact-info-icon">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="contact-info-text">
+              <strong>Dirección</strong>
+              <span>Edificio Las Ceibas MD · Calle 25 #6-88 · 3er Piso · Neiva, Huila</span>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.6 1.25h3a2 2 0 0 1 2 1.72c.13 1 .37 1.97.72 2.9a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.93.35 1.9.59 2.9.72A2 2 0 0 1 21.72 16.92z"/></svg>
+            </div>
+            <div class="contact-info-text">
+              <strong>Celular</strong>
+              <span>314 587 2574</span>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon">
+              <svg viewBox="0 0 24 24"><path d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.6 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.72 16.92z"/></svg>
+            </div>
+            <div class="contact-info-text">
+              <strong>PBX</strong>
+              <span>864 3838 Extensión 309</span>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <div class="contact-info-text">
+              <strong>Sitio web</strong>
+              <span>www.masportusalud.com</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <strong>Fundación Más Por Tu Salud</strong>
+        <p>Institución sin ánimo de lucro comprometida con brindar atención médica de alta calidad, oportuna y accesible para toda la comunidad de Neiva y el Huila.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="fill:none !important"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" aria-label="X">
+            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="#" aria-label="TikTok">
+            <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Especialidades</h4>
+        <ul>
+          <li>Cardiología</li>
+          <li>Diabetología</li>
+          <li>Medicina Interna</li>
+          <li>Reumatología</li>
+          <li>Endocrinología</li>
+          <li>Medicina Geriátrica</li>
+          <li>Medicina del Deporte</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Servicios</h4>
+        <ul>
+          <li>Electrocardiograma</li>
+          <li>Exámenes de Laboratorio</li>
+          <li>Rehabilitación Cardíaca</li>
+          <li>Rehabilitación Pulmonar</li>
+          <li>Terapia Física</li>
+          <li>Medicina Alternativa</li>
+          <li>Exámenes Diagnósticos</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Fundación Más Por Tu Salud · Todos los derechos reservados</span>
+      <span>Neiva, Huila, Colombia · www.masportusalud.com</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
