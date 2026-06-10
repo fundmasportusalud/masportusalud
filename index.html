@@ -27,7 +27,7 @@
     .topbar {
       background: var(--navy);
       padding: .55rem 3rem;
-      display: flex; justify-content: space-between; align-items: center;
+      display: flex; justify-content: flex-end; align-items: center;
     }
     .topbar-contact { color: rgba(255,255,255,.75); font-size: .78rem; letter-spacing: .02em; }
     .topbar-contact span { margin-right: 1.8rem; }
@@ -54,11 +54,6 @@
       padding: 10px 3rem;
     }
     .nav-brand { display: flex; align-items: center; gap: 1rem; text-decoration: none; }
-    .nav-brand-logo img {
-      height: 110px;
-      width: auto;
-      display: block;
-    }
     .nav-brand-logo svg { width: 22px; height: 22px; fill: none; stroke: white; stroke-width: 2; }
     .nav-brand-text { line-height: 1.15; }
     .nav-brand-text strong {
@@ -366,23 +361,88 @@
       color: rgba(255,255,255,.3); font-size: .78rem;
     }
 
+    /* ─── HAMBURGER BUTTON ─── */
+    .nav-toggle {
+      display: none;
+      flex-direction: column; justify-content: center; align-items: center;
+      gap: 5px; width: 40px; height: 40px;
+      background: none; border: none; cursor: pointer;
+      padding: 4px; border-radius: 6px;
+      transition: background .2s;
+    }
+    .nav-toggle:hover { background: var(--offwhite); }
+    .nav-toggle span {
+      display: block; width: 24px; height: 2px;
+      background: var(--navy); border-radius: 2px;
+      transition: transform .25s, opacity .2s;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ─── MOBILE MENU OVERLAY ─── */
+    .nav-mobile-menu {
+      display: none;
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--white); z-index: 190;
+      flex-direction: column;
+      padding: 100px 2rem 2rem;
+    }
+    .nav-mobile-menu.open { display: flex; }
+    .nav-mobile-menu ul {
+      list-style: none; display: flex; flex-direction: column; gap: 0;
+      flex: 1;
+    }
+    .nav-mobile-menu ul li { border-bottom: 1px solid var(--divider); }
+    .nav-mobile-menu ul a {
+      display: block; padding: 1.1rem .5rem;
+      text-decoration: none; color: var(--text);
+      font-size: 1.1rem; font-weight: 500;
+      transition: color .2s, padding-left .2s;
+    }
+    .nav-mobile-menu ul a:hover { color: var(--navy); padding-left: 1rem; }
+    .nav-mobile-cta {
+      margin-top: 2rem;
+    }
+    .nav-mobile-cta a {
+      display: block; background: var(--red); color: white;
+      text-align: center; padding: .9rem 1.4rem; border-radius: 8px;
+      font-size: 1rem; font-weight: 600; text-decoration: none;
+      transition: background .2s;
+    }
+    .nav-mobile-cta a:hover { background: #a93226; }
+
     /* ─── RESPONSIVE ─── */
     @media (max-width: 900px) {
-      .topbar, nav { padding: 0 1.5rem; }
-      .sec { padding: 3.5rem 1.5rem; }
+      /* Topbar: ocultar dirección en pantallas medianas */
+      .topbar { padding: .45rem 1.2rem; flex-wrap: wrap; gap: .4rem; }
+      .topbar-contact .topbar-addr { display: none; }
+
+      /* Nav */
+      nav { padding: 8px 1.2rem; min-height: 70px; }
+      .nav-brand-logo img { height: 70px; top: 0; }
+      nav > ul { display: none; }
+      .nav-contact-btn { display: none; }
+      .nav-toggle { display: flex; }
+
+      .sec { padding: 3.5rem 1.2rem; }
+      .diag-sec { padding: 3.5rem 1.2rem; }
       .about-grid, .esp-intro-grid, .contact-grid,
       .diag-grid, .footer-top { grid-template-columns: 1fr; gap: 2.5rem; }
       .planes-grid { grid-template-columns: 1fr; }
       .esp-grid { grid-template-columns: 1fr 1fr; }
-      nav ul { display: none; }
-      .hero-content { padding: 0 1.5rem; }
+      .hero-content { padding: 0 1.2rem; }
       .about-img-badge { right: 10px; top: 10px; }
       .footer-bottom { flex-direction: column; gap: .5rem; text-align: center; }
     }
     @media (max-width: 560px) {
+      /* Topbar: solo teléfono visible */
+      .topbar-contact .topbar-pbx { display: none; }
       .esp-grid { grid-template-columns: 1fr; }
       .about-values { grid-template-columns: 1fr; }
-      .hero-stats { gap: 1.5rem; }
+      .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+      .hero-stats .hero-stat { min-width: 80px; }
+      footer { padding: 3rem 1.2rem 1.5rem; }
     }
   </style>
 </head>
@@ -390,11 +450,6 @@
 
 <!-- TOPBAR -->
 <div class="topbar">
-  <div class="topbar-contact">
-    <span><strong>Tel:</strong> 864 3838 Ext. 309</span>
-    <span><strong>Cel:</strong> 314 587 2574</span>
-    <span>Calle 25 #6-88 · 3er Piso · Neiva, Huila</span>
-  </div>
   <div class="topbar-social">
     <!-- Facebook -->
     <a href="https://www.facebook.com/profile.php?id=61590552937576" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
@@ -436,7 +491,48 @@
   </ul>
 
   <a class="nav-contact-btn" href="#contacto">Ubícanos</a>
+
+  <!-- Botón hamburguesa (solo móvil) -->
+  <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- Menú móvil overlay -->
+<div class="nav-mobile-menu" id="navMobileMenu">
+  <ul>
+    <li><a href="#nosotros" class="nav-mobile-link">Nosotros</a></li>
+    <li><a href="#planes" class="nav-mobile-link">Planes</a></li>
+    <li><a href="#especialidades" class="nav-mobile-link">Especialidades</a></li>
+    <li><a href="#diagnosticos" class="nav-mobile-link">Diagnósticos</a></li>
+    <li><a href="#contacto" class="nav-mobile-link">Contacto</a></li>
+  </ul>
+  <div class="nav-mobile-cta">
+    <a href="#contacto" class="nav-mobile-link">Ubícanos</a>
+  </div>
+</div>
+
+<script>
+  const toggle = document.getElementById('navToggle');
+  const mobileMenu = document.getElementById('navMobileMenu');
+  const mobileLinks = document.querySelectorAll('.nav-mobile-link');
+
+  function closeMenu() {
+    toggle.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  toggle.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    toggle.classList.toggle('open', isOpen);
+    toggle.setAttribute('aria-expanded', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
+</script>
 
 <!-- HERO -->
 <section class="hero">
@@ -686,7 +782,7 @@
             </div>
             <div class="contact-info-text">
               <strong>Sitio web</strong>
-              <span>https://masportusalud.netlify.app</span>
+              <span>masportusalud.netlify.app</span>
             </div>
           </div>
         </div>
@@ -744,7 +840,7 @@
     </div>
     <div class="footer-bottom">
       <span>© 2025 Fundación Más Por Tu Salud · Todos los derechos reservados</span>
-      <span>Neiva, Huila, Colombia · www.masportusalud.com</span>
+      <span>Neiva, Huila, Colombia · masportusalud.netlify.app</span>
     </div>
   </div>
 </footer>
